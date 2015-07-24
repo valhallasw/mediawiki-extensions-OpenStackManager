@@ -48,17 +48,6 @@ class YamlContent extends TextContent {
 	}
 
 	/**
-	 * Beautifies YAML prior to save.
-	 * @param Title $title Title
-	 * @param User $user User
-	 * @param ParserOptions $popts
-	 * @return YamlContent
-	 */
-	public function preSaveTransform( Title $title, User $user, ParserOptions $popts ) {
-		return new static( $this->beautifyYAML() );
-	}
-
-	/**
 	 * Set the HTML and add the appropriate styles
 	 *
 	 *
@@ -75,7 +64,7 @@ class YamlContent extends TextContent {
 			$html = Html::element( 'pre', array(
 				'class' => 'mw-code mw-yaml',
 				'dir' => 'ltr',
-			), $this->getNativeData() );
+			), new static( $this->beautifyYAML() ) );
 
 			$output->setText( $html );
 		} else {
